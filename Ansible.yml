@@ -1,5 +1,4 @@
 - hosts: all
-  host_key_checking: False
   become: true
   tasks: 
      - name: create new deployment
