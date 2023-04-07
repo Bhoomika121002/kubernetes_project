@@ -1,16 +1,14 @@
-FROM centos:latest
-MAINTAINER chaudharybhoomika12@gmail.com
-
-RUN yum clean all && \
-    yum makecache && \
-    yum update -y --disablerepo=appstream && \
-    yum install -y httpd zip unzip --disablerepo=appstream && \
-    yum clean all
-
-ADD https://www.free-css.com/assets/files/free-css-templates/download/page254/photogenic.zip /var/www/html/
+FROM  centos:latest
+RUN cd /etc/yum.repos.d/
+RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+RUN yum install -y httpd \
+ zip\
+ unzip
+ADD https://www.free-css.com/assets/files/free-css-templates/download/page285/farmfresh.zip  /var/www/html/
 WORKDIR /var/www/html/
-RUN unzip photogenic.zip
-RUN cp -rvf photogenic/* .
-RUN rm -rf photogenic photogenic.zip
+RUN unzip farmfresh.zip
+RUN cp -rvf organic-farm-website-template/* .
+RUN rm -rf organic-farm-website-template  farmfresh.zip
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
-EXPOSE 80
+EXPOSE 80 22
