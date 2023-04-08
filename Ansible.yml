@@ -1,6 +1,5 @@
 - hosts: all
   become: true
-  command: kubectl apply -f /path/to/manifest.yml --kubeconfig=/home/ubuntu/.kube/config
   tasks: 
      - name: create new deployment
        command: kubectl apply -f /home/ubuntu/Deployment.yml
